@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GeoCameraActivity"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/topimageView"
+        android:layout_width="match_parent"
+        android:layout_height="219dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/top_img" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topimageView"
+        android:id="@+id/title"
+        android:text="Geo Camera"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:textSize="30dp"
+        android:textColor="@color/darkblue"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/capimageview"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_below="@+id/title"
+        android:layout_above="@+id/cameraBtn"/>
+
+    <Button
+        android:layout_width="400dp"
+        android:layout_height="60dp"
+        android:id="@+id/cameraBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-10dp"
+        android:backgroundTint="@color/darkblue"
+        android:textColor="@color/white"
+        android:text="Click here to CAPTURE"
+        android:layout_above="@+id/upload" />
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/upload"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp">
+
+        <ImageButton
+            android:id="@+id/yesUpload"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/baseline_check_24"
+            android:backgroundTint="@color/green" />
+
+        <ImageButton
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/baseline_cancel_24"
+            android:id="@+id/noUpload"
+            android:layout_toRightOf="@+id/yesUpload"
+            android:backgroundTint="@color/red"/>
+
+
+    </RelativeLayout>
+</RelativeLayout>
