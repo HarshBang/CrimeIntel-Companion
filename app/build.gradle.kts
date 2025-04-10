@@ -48,5 +48,9 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation ("com.amazonaws:aws-android-sdk-core:2.73.0")
+    implementation ("com.amazonaws:aws-android-sdk-s3:2.73.0")
+    implementation ("com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.73.0")
 }

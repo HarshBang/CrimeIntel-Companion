@@ -19,8 +19,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -41,6 +44,21 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.mobileconnectors.s3.transferutility.*;
+import java.io.File;
+
 public class GeoCameraActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 22;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 123;
@@ -51,6 +69,12 @@ public class GeoCameraActivity extends AppCompatActivity {
     double latitude;
     double longitude;
     String address, date, time, timeZone;
+    ImageButton yesUpload, erase;
+    Uri imageUri;
+    File imageFile;
+
+    private CognitoCachingCredentialsProvider credentialsProvider;
+    private AmazonS3Client s3Client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +82,12 @@ public class GeoCameraActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_geo_camera);
 
+        checkCameraAndStoragePermissions();
+
         btnpicture = findViewById(R.id.cameraBtn);
         imageView = findViewById(R.id.capimageview);
+        yesUpload = findViewById(R.id.yesUpload);
+        erase = findViewById(R.id.erase);
 
         btnpicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,10 +99,47 @@ public class GeoCameraActivity extends AppCompatActivity {
                 }
             }
         });
+
+        yesUpload.setOnClickListener(v -> {
+            if (imageFile != null) {
+                uploadImageToS3(imageFile);
+            } else {
+                Toast.makeText(this, "Capture an image first", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        erase.setOnClickListener(v -> eraseImage());
+
+        credentialsProvider = new CognitoCachingCredentialsProvider(
+                getApplicationContext(),
+                "us-east-1:270e7253-126f-4e3f-bdbe-de12745362da", // Cognito Identity Pool ID
+                Regions.US_EAST_1
+        );
+
+        // ✅ Create S3 client with credentials
+        s3Client = new AmazonS3Client(credentialsProvider);
+    }
+
+    private static final int CAMERA_PERMISSION_CODE = 102;
+
+    private void checkCameraAndStoragePermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            }, CAMERA_PERMISSION_CODE);
+        }
     }
 
     private void getLocationAndTakePicture() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Toast.makeText(this, "Please enable GPS", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            return;
+        }
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location != null) {
@@ -282,7 +347,8 @@ public class GeoCameraActivity extends AppCompatActivity {
     }
 
     private void saveBitmapWithOverlay(Bitmap bitmap) {
-        File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "final_image_with_overlay.jpg");
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "IMG_" + timeStamp + "_overlay.jpg");
         try (FileOutputStream out = new FileOutputStream(file)) {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);  // Save as JPEG with high quality
             Toast.makeText(this, "Image saved with overlay: " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
@@ -290,5 +356,56 @@ public class GeoCameraActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, "Error saving image", Toast.LENGTH_SHORT).show();
         }
+        imageFile = file;
+    }
+
+    public void uploadImageToS3(File imageFile) {
+        TransferUtility transferUtility = TransferUtility.builder()
+                .context(getApplicationContext())
+                .awsConfiguration(null) // Not using awsconfiguration.json
+                .s3Client(s3Client)
+                .build();
+
+        TransferObserver uploadObserver = transferUtility.upload(
+                "crimeintel-evidence",          // bucket name
+                "evidence/" + imageFile.getName(), // key (path in S3)
+                imageFile
+        );
+
+        uploadObserver.setTransferListener(new TransferListener() {
+            @Override
+            public void onStateChanged(int id, TransferState state) {
+                if (state == TransferState.COMPLETED) {
+                    Log.d("S3 Upload", "Upload successful!");
+                    // 🔁 Call Lambda here if needed
+                }
+            }
+
+            @Override
+            public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
+                float percentDonef = ((float) bytesCurrent / (float) bytesTotal) * 100;
+                int percentDone = (int) percentDonef;
+                Log.d("S3 Upload", "Progress: " + percentDone + "%");
+            }
+
+            @Override
+            public void onError(int id, Exception ex) {
+                Log.e("S3 Upload", "Upload error", ex);
+            }
+        });
+    }
+
+
+    private void eraseImage() {
+        imageView.setImageDrawable(null);  // Clear the ImageView
+        if (imageFile != null && imageFile.exists()) {
+            if (imageFile.delete()) {
+                Toast.makeText(this, "Image deleted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Failed to delete image", Toast.LENGTH_SHORT).show();
+            }
+        }
+        imageFile = null;
+        currentPhotoPath = null;
     }
 }

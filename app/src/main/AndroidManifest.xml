@@ -23,6 +23,7 @@
         android:roundIcon="@drawable/applogo"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.CrimeIntelCompanion"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".CallExpertActivity"
