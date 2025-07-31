@@ -4,6 +4,14 @@
 
 A mobile Android application designed to assist law enforcement officers directly at crime scenes, especially in regions lacking timely forensic support. The app aims to improve conviction rates in minor cases by enabling real-time evidence capture, secure storage, AI assistance, and SOP guidance.
 
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Amazon S3](https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=amazon-s3&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
 ## 🎯 Project Goals
 - Support law enforcement officers during on-site crime scene documentation
 - Improve traceability, accuracy, and handling of crime scene evidence
