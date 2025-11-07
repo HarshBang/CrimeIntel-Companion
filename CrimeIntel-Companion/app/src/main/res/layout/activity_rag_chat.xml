@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RagChatActivity"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/topimageView"
+        android:layout_width="match_parent"
+        android:layout_height="219dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/top_img" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/recycler_view"
+        android:layout_above="@+id/bottom_layout"
+        android:layout_below="@+id/topimageView"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/welcome_text"
+        android:layout_centerInParent="true"
+        android:text="\n\n\n\nAsk Your Forensic & Legal Questions\nRAG-Powered Virtual Assistant"
+        android:gravity="center"
+        android:textSize="24dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:padding="8dp"
+        android:id="@+id/bottom_layout">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/message_edit_text"
+            android:layout_centerInParent="true"
+            android:hint="Ask about forensic procedures, IPC sections, or crime scene protocols..."
+            android:padding="20dp"
+            android:layout_toLeftOf="@+id/send_btn"
+            android:background="@drawable/rounded_corner"/>
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="75dp"
+            android:id="@+id/send_btn"
+            android:layout_centerInParent="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/baseline_send_24"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
+
