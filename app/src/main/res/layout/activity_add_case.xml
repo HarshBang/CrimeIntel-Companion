@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- ===== Scrollable Form Below Banner ===== -->
+    <!-- ===== Scrollable Form ===== -->
     <ScrollView
         android:id="@+id/addCaseScrollView"
         android:layout_width="0dp"
@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="Case Identification"
                 android:textStyle="bold"
+                android:textColor="@color/darkblue"
                 android:paddingTop="6dp" />
 
             <EditText
@@ -49,6 +50,8 @@
                 android:layout_height="wrap_content"
                 android:hint="FIR Number (unique)"
                 android:inputType="text"
+                android:textColor="@color/darkblue"
+                android:textColorHint="@color/darkblue"
                 android:maxLines="1" />
 
             <EditText
@@ -57,6 +60,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Case Title (max 100 chars)"
                 android:inputType="textCapWords"
+                android:textColor="@color/darkblue"
+                android:textColorHint="@color/darkblue"
                 android:maxLines="2" />
 
             <Spinner
@@ -72,6 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Status: Active"
+                android:textColor="@color/darkblue"
                 android:paddingTop="6dp" />
 
             <!-- Section 2: Jurisdiction -->
@@ -80,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:text="Jurisdiction"
                 android:textStyle="bold"
+                android:textColor="@color/darkblue"
                 android:paddingTop="12dp" />
 
             <EditText
@@ -87,6 +94,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Police Station Name"
+                android:textColor="@color/darkblue"
+                android:textColorHint="@color/darkblue"
                 android:inputType="text" />
 
             <LinearLayout
@@ -99,7 +108,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:hint="Lat"
+                    android:hint="Latitude"
+                    android:enabled="false"
+                    android:textColor="@color/darkblue"
+                    android:textColorHint="@color/darkblue"
                     android:inputType="numberDecimal" />
 
                 <EditText
@@ -107,7 +119,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:hint="Lon"
+                    android:hint="Longitude"
+                    android:enabled="false"
+                    android:textColor="@color/darkblue"
+                    android:textColorHint="@color/darkblue"
                     android:inputType="numberDecimal" />
             </LinearLayout>
 
@@ -115,14 +130,10 @@
                 android:id="@+id/inputCrimeAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Manual Address"
+                android:hint="Address (Auto-fetched but editable)"
+                android:textColor="@color/darkblue"
+                android:textColorHint="@color/darkblue"
                 android:inputType="textMultiLine" />
-
-            <Button
-                android:id="@+id/btnGetGps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Get GPS" />
 
             <!-- Section 3: Complainant Details -->
             <TextView
@@ -130,6 +141,7 @@
                 android:layout_height="wrap_content"
                 android:text="Complainant Details"
                 android:textStyle="bold"
+                android:textColor="@color/darkblue"
                 android:paddingTop="12dp" />
 
             <EditText
@@ -137,6 +149,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Full Name"
+                android:textColor="@color/darkblue"
+                android:textColorHint="@color/darkblue"
                 android:inputType="textPersonName" />
 
             <EditText
@@ -144,6 +158,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contact Number (10 digits)"
+                android:textColor="@color/darkblue"
+                android:textColorHint="@color/darkblue"
                 android:inputType="phone" />
 
             <EditText
@@ -151,6 +167,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Address"
+                android:textColor="@color/darkblue"
+                android:textColorHint="@color/darkblue"
                 android:inputType="textMultiLine" />
 
             <!-- Section 4: Incident Details -->
@@ -159,20 +177,27 @@
                 android:layout_height="wrap_content"
                 android:text="Incident Details"
                 android:textStyle="bold"
+                android:textColor="@color/darkblue"
                 android:paddingTop="12dp" />
 
             <EditText
                 android:id="@+id/inputIncidentDatetime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Incident Date &amp; Time (YYYY-MM-DD HH:mm)"
-                android:inputType="datetime" />
+                android:hint="Select Incident Date"
+                android:focusable="false"
+                android:clickable="true"
+                android:inputType="none"
+                android:textColor="@color/darkblue"
+                android:textColorHint="@color/darkblue" />
 
             <EditText
                 android:id="@+id/inputIncidentSummary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Brief summary (max 500 chars)"
+                android:textColor="@color/darkblue"
+                android:textColorHint="@color/darkblue"
                 android:inputType="textMultiLine"
                 android:maxLines="5" />
 
@@ -182,6 +207,7 @@
                 android:layout_height="wrap_content"
                 android:text="Officer Details"
                 android:textStyle="bold"
+                android:textColor="@color/darkblue"
                 android:paddingTop="12dp" />
 
             <EditText
@@ -189,22 +215,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="IO Name"
-                android:inputType="text"
-                android:enabled="false" />
+                android:textColor="@color/darkblue"
+                android:textColorHint="@color/darkblue"
+                android:enabled="false"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/inputBadgeNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Badge Number"
-                android:inputType="text"
-                android:enabled="false" />
+                android:textColor="@color/darkblue"
+                android:textColorHint="@color/darkblue"
+                android:enabled="false"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/inputTeamMembers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Team members (comma-separated)"
+                android:textColor="@color/darkblue"
+                android:textColorHint="@color/darkblue"
                 android:inputType="text" />
 
             <!-- Buttons -->
