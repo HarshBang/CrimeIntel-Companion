@@ -1,7 +1,6 @@
 package com.example.crimeintelcompanion;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +34,7 @@ public class HomeFragment extends Fragment {
         caseSpinner = view.findViewById(R.id.caseSpinner);
 
         dbHelper = new DatabaseHelper(getContext());
-        loadCaseSpinner();  // ✅ load cases dynamically
+        loadCaseSpinner();  // ✅ Load cases dynamically with latest case auto-selected
 
         // ===== Card Clicks =====
         checkListCard.setOnClickListener(v -> {
@@ -44,7 +43,7 @@ public class HomeFragment extends Fragment {
         });
 
         cameraCard.setOnClickListener(v -> {
-            Intent i = new Intent(getActivity(), GeoCameraActivity.class);
+            Intent i = new Intent(getActivity(), CaseFolderActivity.class);
             startActivity(i);
         });
 
@@ -62,7 +61,7 @@ public class HomeFragment extends Fragment {
         caseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i > 0 && !caseList.get(i).equals("No Cases Available")) {
+                if (i >= 0 && !caseList.get(i).equals("No Cases Available")) {
                     Toast.makeText(getContext(), "Selected: " + caseList.get(i), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -75,21 +74,21 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadCaseSpinner() {
-        caseList = new ArrayList<>();
-        caseList.add("Select Case");
+        caseList = dbHelper.getAllCases();
 
-        // Fetch case titles from database
-        ArrayList<String> titles = dbHelper.getAllCases();
-        if (titles.size() == 0) {
+        if (caseList.isEmpty()) {
             caseList.add("No Cases Available");
-        } else {
-            caseList.addAll(titles);
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_item, caseList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         caseSpinner.setAdapter(adapter);
+
+        // ✅ Auto-select latest case (last item in list)
+        if (!caseList.isEmpty() && !caseList.get(0).equals("No Cases Available")) {
+            caseSpinner.setSelection(caseList.size() - 1);
+        }
     }
 
     @Override
