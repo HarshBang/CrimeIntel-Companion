@@ -32,7 +32,7 @@
             android:name=".GeoCameraActivity"
             android:exported="false" />
         <activity
-            android:name=".CheckListActivity"
+            android:name=".AddCaseActivity"
             android:exported="false" />
         <activity
             android:name=".ChatBotActivity"

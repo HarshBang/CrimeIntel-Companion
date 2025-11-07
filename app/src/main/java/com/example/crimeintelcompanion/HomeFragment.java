@@ -19,7 +19,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        checkListCard = view.findViewById(R.id.checkListCard);
+        checkListCard = view.findViewById(R.id.addCaseCard);
         cameraCard = view.findViewById(R.id.cameraCard);
         chatbotcard = view.findViewById(R.id.chatbotCard);
         fexpertCard = view.findViewById(R.id.fexpertCard);
@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment {
         checkListCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), CheckListActivity.class);
+                Intent i = new Intent(getActivity(), AddCaseActivity.class);
                 startActivity(i);
             }
         });
