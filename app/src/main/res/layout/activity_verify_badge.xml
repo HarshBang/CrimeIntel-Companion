@@ -8,12 +8,12 @@
 
     <ImageView
         android:src="@drawable/ciclogot"
-        android:layout_gravity="center"
         android:layout_width="80dp"
-        android:layout_height="80dp"/>
+        android:layout_height="80dp"
+        android:layout_gravity="center"/>
 
     <TextView
-        android:text="Login"
+        android:text="Verify Badge"
         android:textColor="@color/softWhite"
         android:textStyle="bold"
         android:textSize="18sp"
@@ -24,33 +24,22 @@
 
     <EditText
         android:id="@+id/etBadge"
-        android:hint="Badge Number"
-        android:textColor="@color/softWhite"
+        android:hint="Enter Badge Number"
         android:textColorHint="@color/softGray"
+        android:textColor="@color/softWhite"
         android:backgroundTint="@color/accentCyan"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <EditText
-        android:id="@+id/etMpin"
-        android:hint="6-digit M-PIN"
-        android:inputType="numberPassword"
-        android:maxLength="6"
-        android:textColor="@color/softWhite"
-        android:textColorHint="@color/softGray"
-        android:backgroundTint="@color/accentCyan"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
     <Button
-        android:id="@+id/btnLogin"
-        android:text="Login"
+        android:id="@+id/btnVerify"
+        android:text="Verify"
         android:textAllCaps="false"
         android:textColor="@color/softWhite"
         android:backgroundTint="@color/primaryBlueLight"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
 </LinearLayout>

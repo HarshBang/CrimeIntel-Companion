@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="darkblue">#1F2247</color>
-    <color name="red">#9E0808</color>
-    <color name="green">#008000</color>
+
+    <!-- Main theme colors -->
+    <color name="deepNavy">#0B1220</color>
+    <color name="primaryBlue">#1E3A8A</color>
+    <color name="primaryBlueLight">#2B5CC8</color>
+    <color name="accentCyan">#22D3EE</color>
+    <color name="softWhite">#F7FAFC</color>
+    <color name="softGray">#9CA3AF</color>
+    <color name="dangerRed">#EF4444</color>
+    <color name="okGreen">#10B981</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Required missing colors (errors in your build) -->
+    <color name="green">#10B981</color>   <!-- Required for success UI -->
+    <color name="red">#EF4444</color>     <!-- Required for error UI -->
+
+    <!-- Fix missing colors -->
+    <color name="darkblue">#0B1D39</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Additional UI colors -->
+    <color name="teal">#1AA6B7</color>
+    <color name="light_blue">#1592A1</color>
+    <color name="background_dark">#0F2244</color>
+    <color name="card_dark">#10274D</color>
+
 </resources>

@@ -6,35 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:src="@drawable/ciclogot"
-        android:layout_gravity="center"
-        android:layout_width="80dp"
-        android:layout_height="80dp"/>
-
     <TextView
-        android:text="Login"
+        android:text="Complete Profile"
         android:textColor="@color/softWhite"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:layout_marginTop="16dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <EditText
-        android:id="@+id/etBadge"
-        android:hint="Badge Number"
-        android:textColor="@color/softWhite"
+        android:id="@+id/etName"
+        android:hint="Your Name"
         android:textColorHint="@color/softGray"
+        android:textColor="@color/softWhite"
         android:backgroundTint="@color/accentCyan"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/etMpin"
-        android:hint="6-digit M-PIN"
+        android:hint="Set 6-digit M-PIN"
         android:inputType="numberPassword"
         android:maxLength="6"
         android:textColor="@color/softWhite"
@@ -45,8 +38,8 @@
         android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@+id/btnLogin"
-        android:text="Login"
+        android:id="@+id/btnSave"
+        android:text="Save and Continue"
         android:textAllCaps="false"
         android:textColor="@color/softWhite"
         android:backgroundTint="@color/primaryBlueLight"
