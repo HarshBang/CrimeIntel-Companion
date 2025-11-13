@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
         chatbotcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), ChatBotActivity.class);
+                Intent i = new Intent(getActivity(), RagChatActivity.class);
                 startActivity(i);
             }
         });

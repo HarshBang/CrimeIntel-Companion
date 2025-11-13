@@ -39,6 +39,10 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize"/>
         <activity
+            android:name=".RagChatActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
             android:name=".HomePageActivity"
             android:exported="false" />
         <activity

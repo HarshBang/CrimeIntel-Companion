@@ -27,7 +27,7 @@ A mobile Android application designed to assist law enforcement officers directl
 | **Object Detection (Faster R-CNN model with 14 classes)** | 🔄 Model built, app integration pending |
 | **In-app Chatbot (OpenAI Generative API)** | ✅ Initial version done |
 | **SOPs PDF-based Assistance (via chatbot)** | 🔄 In progress |
-| **Offline-ready LLM + RAG Model for SOP Q&A** | 🔜 Planned |
+| **Offline-ready LLM + RAG Model for SOP Q&A** | ✅ Local FastAPI + Ollama phi3 working |
 
 
 ## 🧠 Evidence Detection Model (Coming Soon)
@@ -53,6 +53,24 @@ A custom Faster R-CNN model trained on **4,463 images** across **14 evidence cla
 - [ ] Add offline LLM (Phi-2, Mistral, etc.) for edge environments
 - [ ] Create dashboards with role-based access
 - [ ] Case-wise evidence log with map and media view
+
+## 🗣️ Virtual Assistant (RAG) Overview
+
+- ✅ **Local FastAPI microservice** (`rag_service/`) using ChromaDB + `all-MiniLM-L6-v2`
+- ✅ **phi3 Ollama model** for on-device / LAN responses (no internet required once documents are embedded)
+- ✅ **Android `RagChatActivity`** wired to the service with smarter timeouts and concise answers
+- 🔄 **TensorFlow Lite fallback** planned for true no-network mode
+
+### Sample Questions to Try
+
+The chatbot now answers with short, actionable guidance based on the embedded SOP PDFs. Suggested prompts:
+
+- “How should I preserve blood-stained clothing collected at a crime scene?”
+- “What are the chain-of-custody steps after seizing a weapon?”
+- “Give me the checklist before sealing a crime scene.”
+- “Which IPC section covers tampering with evidence?”
+
+> Tip: make sure the RAG service is running (`uvicorn app:app --host 0.0.0.0 --port 8000`) and the Android app points to the correct LAN IP (use `10.0.2.2` on emulator).
 
 ## 👤 About Me
 I am a passionate student at NMIMS School of Technology Management and Engineering, persuing Computer Science Engineering specializing in Data Science.
